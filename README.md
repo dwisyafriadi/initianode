@@ -5,3 +5,12 @@ Jasa Installasi Node Blockchain
 **WA:** 081-214-827-906
 
 **Facebook:** [Mochamad Dwi Syafriadi](https://www.facebook.com/dwisyafriadi)
+
+
+# Cara jalanan aplikasi
+1. git clone https://github.com/dwisyafriadi/initianode.git
+2. chmod +x initiainstall.sh
+3. ./initiainstall.sh
+
+# Cara cek sync
+1. ./cek-synch.sh
