@@ -118,6 +118,29 @@ EOF
 #  echo "No snapshot available."
 #fi
 
+echo -e '\n\e[42mBuild Cek Sync\e[0m\n' && sleep 1
+echo  # Baris kosong
+
+# Buat file cek-synch.sh dan isi dengan konten yang diberikan
+cat << 'EOF' > cek-synch.sh
+# Menjalankan perintah untuk mendapatkan informasi sinkronisasi
+sync_info=$(initiad status | jq -r .sync_info)
+
+# Mendapatkan nilai 'catching_up' dan 'latest_block_height'
+catching_up=$(echo "$sync_info" | jq -r .catching_up)
+latest_block_height=$(echo "$sync_info" | jq -r .latest_block_height)
+
+# Memeriksa nilai 'catching_up' dan menampilkan pesan yang sesuai
+if [ "$catching_up" == "true" ]; then
+  echo "Node masih download. Total download $latest_block_height."
+else
+  echo "Node sudah tersingkron. $latest_block_height."
+fi
+EOF
+
+# Memberikan hak akses eksekusi pada file cek-synch.sh
+chmod +x cek-synch.sh
+
 # enable and start service
 sudo systemctl daemon-reload
 sudo systemctl enable initiad
@@ -126,4 +149,5 @@ sudo systemctl restart initiad && sudo journalctl -u initiad -f
 # Menampilkan log layanan Initia
 echo "Setup selesai. Node Initia telah berhasil diinisialisasi!"
 echo "Cek service bisa ketik sudo systemctl status initiad"
+echo "Untuk cek status sync. Jalankan command ./cek-sync.sh"
 sleep 5
