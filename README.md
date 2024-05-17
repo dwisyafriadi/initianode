@@ -9,8 +9,9 @@ Jasa Installasi Node Blockchain
 
 # Cara jalanan aplikasi
 1. git clone https://github.com/dwisyafriadi/initianode.git
-2. chmod +x initiainstall.sh
-3. ./initiainstall.sh
+2. cd initianode/
+3. chmod +x initiainstall.sh
+4. ./initiainstall.sh
 
 # Cara cek sync
 1. ./cek-synch.sh
