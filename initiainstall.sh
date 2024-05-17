@@ -119,6 +119,7 @@ EOF
 #fi
 
 echo -e '\n\e[42mBuild Cek Sync\e[0m\n' && sleep 1
+cd $HOME
 echo  # Baris kosong
 
 # Buat file cek-synch.sh dan isi dengan konten yang diberikan
@@ -144,7 +145,7 @@ chmod +x cek-synch.sh
 # enable and start service
 sudo systemctl daemon-reload
 sudo systemctl enable initiad
-sudo systemctl restart initiad && sudo journalctl -u initiad -f
+sudo systemctl restart initiad 
 
 # Menampilkan log layanan Initia
 echo "Setup selesai. Node Initia telah berhasil diinisialisasi!"
