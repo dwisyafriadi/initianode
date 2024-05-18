@@ -123,20 +123,20 @@ cd $HOME
 echo  # Baris kosong
 
 # Buat file cek-synch.sh dan isi dengan konten yang diberikan
-cat << 'EOF' > cek-synch.sh
-# Menjalankan perintah untuk mendapatkan informasi sinkronisasi
-sync_info=$(initiad status | jq -r .sync_info)
+cat << 'EOF' > cek-sync.sh
+# Mendapatkan tinggi blok saat ini dari node lokal
+local_height=$(initiad status | jq -r .sync_info.latest_block_height)
 
-# Mendapatkan nilai 'catching_up' dan 'latest_block_height'
-catching_up=$(echo "$sync_info" | jq -r .catching_up)
-latest_block_height=$(echo "$sync_info" | jq -r .latest_block_height)
+# Mendapatkan tinggi blok saat ini dari jaringan
+network_height=$(curl -s https://rpc-initia.vinjan.xyz/status | jq -r .result.sync_info.latest_block_height)
 
-# Memeriksa nilai 'catching_up' dan menampilkan pesan yang sesuai
-if [ "$catching_up" == "true" ]; then
-  echo "Node masih download. Total download $latest_block_height."
-else
-  echo "Node sudah tersingkron. $latest_block_height."
-fi
+# Menghitung jumlah blok yang tertinggal
+blocks_left=$((network_height - local_height))
+
+# Menampilkan informasi dengan label yang dimodifikasi
+echo "Block Anda saat ini: $local_height"
+echo "Block Server: $network_height"
+echo "Block Tertinggal: $blocks_left"
 EOF
 
 # Memberikan hak akses eksekusi pada file cek-synch.sh
