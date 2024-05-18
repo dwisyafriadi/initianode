@@ -14,4 +14,4 @@ Jasa Installasi Node Blockchain
 4. ./initiainstall.sh
 
 # Cara cek sync
-1. ./cek-synch.sh
+1. ./cek-sync.sh
